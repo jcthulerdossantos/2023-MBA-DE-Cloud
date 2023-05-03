@@ -1,2 +1,2 @@
 # MBA_EDCloud
-Materiais de apoio no bootcamp de Engenharia de Dados Cloud, XP Educação (out-dez/2022)
+Materiais de apoio no MBA de Engenharia de Dados da XP Educação (maio/2023).
