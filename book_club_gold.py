@@ -16,16 +16,19 @@ import boto3
 #Acessos
 
 #RDS
-host = 'xxxx'
-port = 'xxxx'
-user = 'xxxx'
-password = 'xxxx'
-db_name = 'xxxx'
+host = 'thebookclub.cu3xzuafzndb.us-east-2.rds.amazonaws.com'
+port = '3306'
+user = 'bookclub_admin'
+password = 'XPEpa2023!!'
+db_name = 'bookclub'
 
 #S3 | AWS Credentials
-AWS_ACCESS_KEY_ID = 'xxxx'
-AWS_ACCESS_KEY_SECRET = 'xxxx'
-AWS_S3_BUCKET = 'xxxx'
+AWS_ACCESS_KEY_ID = 'AKIA2VQTFI4NPG3DVEVQ'
+AWS_ACCESS_KEY_SECRET = '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'
+AWS_S3_BUCKET = 'datalake-thebookclub'
+
+s3_client = boto3.client('s3', aws_access_key_id = AWS_ACCESS_KEY_ID, aws_secret_access_key = AWS_ACCESS_KEY_SECRET)
+s3_resource = boto3.resource('s3', aws_access_key_id = AWS_ACCESS_KEY_ID, aws_secret_access_key = AWS_ACCESS_KEY_SECRET)
 
 
 #Default args
@@ -220,10 +223,10 @@ def web_scraping_to_my_sql():
 
 	############ FINAL DF TRANSFORMATION
 
-	final_df = books_dataframe.merge(book_information, how = 'left', left_on = 'Book', right_on = 'Link', validate = 'm:1')
+	final_df = books_dataframe.merge(book_info, how = 'left', left_on = 'Book', right_on = 'Link', validate = 'm:1')
 	final_df = final_df.drop(columns = ['Link']) 
 
-	extraction_time = datetime.now(timezone.utc)
+	extraction_time = datetime.now()
 
 	final_df["Extracted_At"] = extraction_time
 
@@ -305,9 +308,6 @@ def from_rds_to_s3_raw():
 	raw_df = pd.DataFrame(data)
 
 	raw_df['extracted_date'] = raw_df.extracted_at.dt.date
-
-	s3_client = boto3.client('s3', aws_access_key_id = AWS_ACCESS_KEY_ID, aws_secret_access_key = AWS_ACCESS_KEY_SECRET)
-	s3_resource = boto3.resource('s3', aws_access_key_id = AWS_ACCESS_KEY_ID, aws_secret_access_key = AWS_ACCESS_KEY_SECRET)
 
 	for distinct_date in raw_df.extracted_date.unique():
 		
