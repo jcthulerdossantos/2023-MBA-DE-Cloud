@@ -12,20 +12,7 @@ import time
 import pymysql
 import boto3
 
-
 #Acessos
-
-#RDS
-host = 'xxxx'
-port = 'xxxx'
-user = 'xxxx'
-password = 'xxxx'
-db_name = 'xxxx'
-
-#S3 | AWS Credentials
-AWS_ACCESS_KEY_ID = 'xxxx'
-AWS_ACCESS_KEY_SECRET = 'xxxx'
-AWS_S3_BUCKET = 'xxxx'
 
 s3_client = boto3.client('s3', aws_access_key_id = AWS_ACCESS_KEY_ID, aws_secret_access_key = AWS_ACCESS_KEY_SECRET)
 s3_resource = boto3.resource('s3', aws_access_key_id = AWS_ACCESS_KEY_ID, aws_secret_access_key = AWS_ACCESS_KEY_SECRET)
